@@ -6,7 +6,7 @@
 
 > 路由配置：`src/router`
 
-> 前端自测模拟数据（发布后不可用）：`mock/`
+> 前端自测模拟数据（修改后要重新跑，且发布后不可用）：`mock/`
 
 > 数据请求层，只负责请求数据 `src/api`
 
@@ -28,9 +28,9 @@
 
 > echarts 按需加载，加入新内容需配置： `src/echarts`
 
-> 杂项，cookie localstorage 等通用功能、方法：`src/utils`
+> 通用功能、方法，cookie localstorage 等：`src/utils`
 
-> 图标支持 svg，可把svg放在 `src/icons/svg` 使用方式： `<sz-svgicon icon-class="juese"></sz-svgicon>`，juese 就是svg 文件名称 
+> 图标支持 svg，可把svg放在 `src/icons/svg` 使用方式： `<sz-svgicon icon-class="juese"></sz-svgicon>`，`juese` 就是svg 文件名称 
 
 > 写组件时给组件加上名字
 
