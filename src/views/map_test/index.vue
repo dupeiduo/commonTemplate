@@ -60,13 +60,25 @@ export default {
       //     radius: 5
       //   }),
       // })
-      var style =  new ol.style.Style({
-          image: new ol.style.Icon({
-            src: require('@/assets/logo.png'),
-            scale: 0.1
+      // var style =  new ol.style.Style({
+      //     image: new ol.style.Icon({
+      //       src: require('@/assets/logo.png'),
+      //       scale: 0.1
+      //     }),
+      //     zIndex: 13
+      //   })
+      var style = new ol.style.Style({
+        image: new ol.style.Chart({
+          type: "pie", 
+          radius: 20, 
+          data: [10,30,20], 
+          rotateWithView: true,
+          stroke: new ol.style.Stroke({
+            color: "#fff",
+            width: 2
           }),
-          zIndex: 13
         })
+      });
       var layer = this.$refs.map.getVectorLayer([feature], style, 100)
       this.$refs.map.addLayer(layer)
 
@@ -77,6 +89,35 @@ export default {
       this.$refs.map.layerForEachFeature(layer, (feature)=> {
         console.log("layerForEachFeature", feature)
       })
+
+      var listenerKey;
+      const doAnimate = () =>{
+        if (listenerKey) return;
+        var start = new Date().getTime();
+        var duration = 1000;
+        var animation = 0;
+        listenerKey = layer.on(['precompose', 'prerender'], function(event) {
+          var frameState = event.frameState;
+          var elapsed = frameState.time - start;
+          if (elapsed > duration) {
+            ol.Observable.unByKey(listenerKey);
+            listenerKey = null;
+            animation = false;
+          } else {
+            animation = ol.easing.easeOut (elapsed / duration);
+            frameState.animate = true;
+            style.getImage().setAnimation(animation)
+          }
+          // layer.changed();
+        });
+        // Force redraw
+        layer.changed();
+        //map.renderSync();
+      }
+      setTimeout(()=> {
+        doAnimate();
+      }, 200)
+      
     },
     renderClusterPoint() {
       var coordinates = [[125.3, 35.5], [121.3, 34.5]]

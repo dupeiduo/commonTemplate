@@ -8,7 +8,7 @@
   </div>
 </template>
 <script type="text/javascript">
-import { homeList } from '@/api/home.js'
+import { homeList, reptile } from '@/api/home.js'
 export default {
   props: {},
   components: {
@@ -29,9 +29,34 @@ export default {
         this.list = res.data.data  
       }
     })
+    // http://111.205.51.26:8091/AnmialSlaughter/Image/Watermark/file_164751183325918270000.jpg
+    // this.county = 20
+    // this.getCounty(undefined).then((res)=> {
+    //   var count = res.data.total
+    //   this.doReq(undefined, count)
+    // })
   },
   methods: {
-
+    doReq(Id, count) {
+      var obj = {"ProvinceName":null,"Id": 0,"EnterpriseName":null,"Address":null,"SlaughterCard":null,"Remark":null,"Xh":0,"CountyId": Id,"PublishDate":"0001-01-01T00:00:00","IsOneMonth":false,"Slaughterpath":null,"Vaccinationpath":null,"Dischargepath":null}
+      var data = {
+        Parms: JSON.stringify(obj),
+        pageNumber: 1,
+        pageSize: count
+      }
+      reptile(data).then((res)=> {
+        console.log(JSON.stringify(res.data))
+      })
+    },
+    async getCounty(Id) {
+      var obj = {"ProvinceName":null,"Id": 0,"EnterpriseName":null,"Address":null,"SlaughterCard":null,"Remark":null,"Xh":0,"CountyId": Id,"PublishDate":"0001-01-01T00:00:00","IsOneMonth":false,"Slaughterpath":null,"Vaccinationpath":null,"Dischargepath":null}
+      var data = {
+        Parms: JSON.stringify(obj),
+        pageNumber: 1,
+        pageSize: 20
+      }
+      return await reptile(data).then()
+    }
   }
 }
 </script>

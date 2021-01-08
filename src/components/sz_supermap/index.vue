@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    var map, url = "https://iserver.supermap.io/iserver/services/map-china400/rest/maps/China";
+    var map, url = "http://192.168.1.120:8090/iserver/services/map-PopulationAndEconomy/rest/maps/2014%E5%B9%B4%E4%BA%BA%E5%8F%A3%E5%AF%86%E5%BA%A6%E4%B8%93%E9%A2%98%E5%9B%BE";
     map = new ol.Map({
         target: 'map',
         controls: ol.control.defaults().extend([
