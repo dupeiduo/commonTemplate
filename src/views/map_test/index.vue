@@ -157,19 +157,19 @@ export default {
       var layer = this.$refs.map.getClusterLayer(features, style, 100)
       this.$refs.map.addLayer(layer)
 
-      this.$refs.map.layerOnClick(layer, (features, event, layer)=> {
+      this.$refs.map.layerOnClick(layer, (features)=> {
         if (features.length > 0) {
           var prop = features[0].getProperties()
           if (prop.features.length > 0) {
             for (var i = 0; i < prop.features.length; i++) {
               console.log(`layerOnClick 第 ${i} 个`, prop.features[i].getProperties().properties.name)
-              features[i] && this.addOverlay(features[i], event)
+              features[i] && this.addOverlay(features[i])
             }
           }
         }
       })
     },
-    addOverlay(feature, event) {
+    addOverlay(feature) {
       var coordinates = feature.getGeometry().getCoordinates()
       var element = document.getElementById("overlayEl")
       var position = this.$refs.map.getOverlayPosition(element, coordinates, 10, 10, 180)
